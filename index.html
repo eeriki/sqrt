@@ -55,28 +55,26 @@
         const results = document.querySelectorAll('.results')
         const btnCalcular = document.querySelector('#btnCalc')
 
+        
 
         const Calcular = () => {
             let resultados = []
             let resultsEl = []
-            for(let i = 0; i < inputNums.length; i++){
 
-                let index = Number(inputNums[i].value)
+            for(let pos in inputNums){
+                let index = Number(inputNums[pos].value)
                 if(index == ''){
                     resultados.push(0)
                 }else{
                     resultados.push(index)
                 }
             }
-            console.log('numeros reconhecidos')
-            for(let i = 0; i < resultados.length; i++){
-                resultsEl.push(resultados[i]**2)
+            for(let i of resultados){
+                resultsEl.push(i**2)
             }
             
-            for(let i = 0; i < results.length; i++){
-                console.log(resultados)
+            for(let i in results){
                 results[i].innerHTML = resultsEl[i]
-                resultados.shift()
             }
         }
 
