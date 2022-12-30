@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadrado</title>
+    <style>
+        .nums{
+            margin: 5px;
+        }
+        button{
+            width: 120px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h1>Elevando ao Quadrado</h1>
+        </div>
+        <div class="inputs">
+            <div class="upline">
+                <label for="n1">N1</label>
+                <input type="number" name="n1" class="nums">
+                <label for="n2">N2</label>
+                <input type="number" name="n2" class="nums">
+                <label for="n3">N3</label>
+                <input type="number" name="n3" class="nums">
+            </div>
+            <div class="downline">
+                <label for="n4">N4</label>
+                <input type="number" name="n4" class="nums">
+                <label for="n5">N5</label>
+                <input type="number" name="n5" class="nums">
+            </div>
+        </div>
+
+        <div class="btnCalc">
+            <button id="btnCalc" style="margin: 10px">Calcular</button>
+        </div>
+
+        <hr>
+        <div class="resultados">
+            <p>N1² = <span class="results"></span></p>
+            <p>N2² = <span class="results"></span></p>
+            <p>N3² = <span class="results"></span></p>
+            <p>N4² = <span class="results"></span></p>
+            <p>N5² = <span class="results"></span></p>
+        </div>
+    </div>
+    <script>
+        const inputNums = document.querySelectorAll('.nums')
+        const results = document.querySelectorAll('.results')
+        const btnCalcular = document.querySelector('#btnCalc')
+
+
+        const Calcular = () => {
+            let resultados = []
+            let resultsEl = []
+            for(let i = 0; i < inputNums.length; i++){
+
+                let index = Number(inputNums[i].value)
+                if(index == ''){
+                    resultados.push(0)
+                }else{
+                    resultados.push(index)
+                }
+            }
+            console.log('numeros reconhecidos')
+            for(let i = 0; i < resultados.length; i++){
+                resultsEl.push(resultados[i]**2)
+            }
+            
+            for(let i = 0; i < results.length; i++){
+                console.log(resultados)
+                results[i].innerHTML = resultsEl[i]
+                resultados.shift()
+            }
+        }
+
+
+
+        btnCalcular.addEventListener('click', Calcular)
+    </script>
+</body>
+</html>
