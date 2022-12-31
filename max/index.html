@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maior Número</title>
+</head>
+<body>
+    <h1>Maior número</h1>
+    <p id="textNums">Números: </p>
+    <p id="bigger">Maior: </p>
+    <script>
+        const show = document.querySelector('#textNums')
+        const showBigger = document.querySelector('#bigger')
+        var numeros = []
+
+        while(numeros.length < 5){
+            numeros.push(Number(prompt('Digite um número: ')))
+        }
+
+        for(let num in numeros){
+            if(num > 0){
+                show.innerHTML += ' - '
+            }
+            show.innerHTML += `${numeros[num]} `
+        }
+
+        const Maior = () => {
+            let big = 0
+            for(let num in numeros){
+                if(numeros[num] > big){
+                    big = numeros[num]
+                }
+            }
+            return big
+        }
+        showBigger.innerHTML += Maior()
+    </script>
+</body>
+</html>

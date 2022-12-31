@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idades</title>
+    
+    <style>
+        h1, .adcAge{
+            display: inline-block;
+        }
+        button{
+            position: relative;
+            top: 5px;
+            margin-left: 2px;
+            cursor: pointer;
+            border: none;
+        }
+        #addAge{
+            width: 40px;
+            height: 40px;
+            color: green;
+            background-color: transparent;
+            font-size: 2rem;
+            
+        }
+        #addAge:hover{
+            color: greenyellow;
+        }
+        .inputAges{
+            display: none;
+        }
+        #ages{
+            width: 125px;
+        }
+        #ages:focus{
+            outline: none;
+        }
+
+        .results{
+            width: 30%;
+        }
+        .fa-xmark{
+            display: inline-block;
+            position: relative;
+            top: 4px;
+            left: 5px;
+            font-size: 1.5rem;
+            color: red;
+        }
+        .fa-xmark:hover{
+            color: indianred;
+            cursor: pointer;
+        }
+    </style>
+<body>
+</head>
+    <h1>Idades - Maiores e Menores</h1>
+    <div class="adcAge">
+        <button id="addAge"><i class="fa-soid fa-plus"></i></button>
+    </div>
+    <div class="container">
+       
+        <div class="inputAges">
+            <label for="age">Idade: </label>
+            <input type="number" min="0" max="102" name="age" id="ages" placeholder="Insira uma idade">
+            <i class="fa-solid fa-xmark" id="hiddenAges"></i>
+            <div class="btnAdd">
+                <button id="btnAdc">Adicionar</button>
+            </div>
+        </div>
+        
+        <div class="results">
+            <hr>
+            <p class="plusQnt">Maiores de idade: <span class="maiores">0</span></p>
+            <p class="minQnt">Menores de idade: <span class="menores">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const inputAges = document.querySelector('.btnAdd')
+        const removeInput = document.querySelector('#hiddenAges')
+        const btnAge = document.querySelector('#addAge')
+        const inputsAges = document.getElementsByClassName('inputAges')
+        const btnAdc = document.querySelector('#btnAdc')
+        const inputElement = document.querySelector('#ages')
+
+        const spanMa = document.querySelector('.maiores')
+        const spanMe = document.querySelector('.menores')
+
+        var maiores = []
+        var menores = []
+
+        const showInput = () => {
+            document.querySelector('.inputAges').style.display = 'block'
+        }
+
+        const hiddInput = () => {
+            document.querySelector('.inputAges').style.display = 'none'
+        }
+
+        const verificarIdades = () => {
+            let idade = Number(inputElement.value)
+            if(idade < 18){
+                menores.push(idade)
+                spanMe.innerHTML = menores.length
+            }else{
+                maiores.push(idade)
+                spanMa.innerHTML = maiores.length
+            }
+        }
+
+
+        btnAge.addEventListener('click', showInput)
+        removeInput.addEventListener('click', hiddInput)
+        btnAdc.addEventListener('click', verificarIdades)
+    </script>
+    <script src="https://kit.fontawesome.com/9b061e5866.js" crossorigin="anonymous"></script>
+</body>
+</html>
