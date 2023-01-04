@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gênero - Idade</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container-geral{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+        .container-1{
+            width: 50%;
+            height: 100%;
+            background:  #B1CFDE;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+        .container-2{
+            width: 50%;
+            height: 100%;
+            background: blueviolet;
+
+            display: flex;
+        }
+        .title{
+            justify-self: start;
+        }
+        .card-register{
+            width: 40%;
+            height: 40%;
+            background-color: #FFEBD1;
+
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+            
+            border-radius: 10px;
+        }
+        .text-box{
+            width: 65%;
+            height: 25px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            padding-left: 5%;
+        }
+        .text-box:focus{
+            outline: none;
+        }
+        .inputName{
+            height: 25%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .inputYear{
+            height: 25%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .inputGender{
+            height: 25%;
+            margin-left: 13%;
+            display: flex;
+            align-items: center;
+        }
+        .options{
+            display: flex;
+            flex-direction: column;
+            margin-left: 10%;
+        }
+        .btnAdd{
+            height: 25%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btnAdd #btnAdd{
+            background-color: #5D7E8F;
+            border: none;
+            color: #fff;
+            width: 45%;
+            height: 50%;
+            border-radius: 10px;
+            font-weight: 700;
+
+        }
+        .btnAdd #btnAdd:hover{
+            background-color: #B1CFDE;
+            cursor: pointer;
+        }
+        .a{
+            width: 100%;
+        }
+        table{
+            border: 1px solid black;
+            background-color: #fff;
+            justify-self: left;
+            height: max-content;
+        }
+        .titles{
+            background-color: #abc;
+        }
+        td{
+            padding: 5px;
+            width: 40px;
+        }
+        .error{
+            border: 2px solid red;
+        }
+        .outputs{
+            margin-left: 3%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-geral">
+        <div class="container-1">
+            <div class="title">
+                <h1>Gênero - Idade</h1>
+            </div>
+            <div class="card-register">
+                <div class="inputName a">
+                    <div class="cent">
+                        <label for="nome">Nome: </label>
+                        <input type="text" name="nome" class="text-box" id="inputName">
+                    </div>
+                </div>
+                <div class="inputYear a">
+                    <div class="cent">
+                        <label for="idade">Idade: </label>
+                        <input type="number" name="idade" class="text-box"id="inputYear">
+                    </div>
+                </div>
+                <div class="inputGender a">
+                    <label for="genero">Sexo: </label>
+                    <div class="options">
+                        <div class="masc" class="opt">
+                            <input type="radio" name="genero" id="inputGenderM" value="M">Masculino
+                        </div>
+                        <div class="femin" class="opt">
+                            <input type="radio" name="genero" id="inputGenderF" value="F">Feminino
+                        </div>
+                    </div>
+                </div>
+                <div class="btnAdd a">
+                    <button id="btnAdd">Enviar</button>
+                </div>
+            </div>
+        </div>
+        <div class="container-2">
+            <table id="table-persons">
+                <tr class="titles">
+                    <td class="t1">Nome</td>
+                    <td class="t2">Idade</td>
+                    <td class="t3">Sexo</td>
+                </tr>
+            </table>
+            <div class="outputs">
+                <h2>Resultados</h2>
+            </div>
+        </div>
+    </div>
+    <script>
+        const inputElements = document.querySelectorAll('.text-box')
+        const inputElementName = document.querySelector('#inputName')
+        const inputElementAge = document.querySelector('#inputYear')
+        const elementsRadio = document.getElementsByName('genero')
+        const btnSub = document.querySelector('#btnAdd')
+        const table = document.querySelector('#table-persons')
+        const outputs = document.querySelector('.outputs')
+
+        var persons = []
+        var nomeMaior = ''
+
+        const newResult = document.createElement('h4')
+        const newResult2 = document.createElement('h4')
+        newResult.classList.add('resultado1-maiorIdade')
+        newResult2.classList.add('resultado2-genero')
+        outputs.appendChild(newResult)
+        outputs.appendChild(newResult2)
+
+        const validateName = () => inputElementName.value.trim().length > 0
+        const validateAges = () => inputElementAge.value.trim().length > 0
+
+        const validateInputs = () =>{
+            
+            if(validateAges() && validateName()){
+                for(let item of inputElements){
+                    if(item.classList.contains('error')){
+                        item.classList.remove('error')
+                    }
+                }
+
+                return true
+            } 
+            if(!validateAges() || !validateName()){
+                error()
+            }
+
+            return false
+        }
+        
+        const error = () => {
+            if(!validateName()){
+                inputElementName.classList.add('error')
+            }
+            if(!validateAges()){
+                inputElementAge.classList.add('error')
+            }
+
+        }
+
+        const verificarIdade = () => {
+            let mIdade = 0
+            for(let pessoa of persons){
+                if(pessoa.Idade > mIdade){
+                    mIdade = pessoa.Idade
+                    newResult.innerHTML = `A pessoa com maior idade é ${pessoa.Nome} com ${mIdade} anos.`
+                }
+            }
+        }
+
+        const verificarSexo = () => {
+            if(getGender() == 'F'){
+                return 'é uma mulher'
+            }
+            return 'é um homem'
+        }
+
+        const getName = () => inputElementName.value
+        const getAges = () => Number(inputElementAge.value)
+
+        const getGender = () => {
+            if(elementsRadio[0].checked){
+                return 'M'
+            }
+            if(elementsRadio[1].checked){
+                return 'F'
+            }
+            return ''
+        }
+
+        const newPerson = (nome, idade, sexo) => {
+
+            const newPessoa = {
+                Nome: nome,
+                Idade: idade,
+                Sexo: sexo
+            }
+            persons.push(newPessoa)
+            table.innerHTML += `<tr>
+                                    <td>${newPessoa.Nome}</td>
+                                    <td>${newPessoa.Idade}</td>
+                                    <td>${newPessoa.Sexo}</td>
+                                </tr>`
+        }
+
+        const FuncPr = () => {
+            if(validateInputs()){
+                if(getGender() != ''){
+                    newPerson(getName(), getAges(), getGender())
+                    verificarIdade()
+                    newResult2.innerHTML = `A pessoa indicada com maior idade ${verificarSexo()}.`
+                }   
+            }
+        }
+
+        btnSub.addEventListener('click', FuncPr)
+    </script>
+    <script src="https://kit.fontawesome.com/9b061e5866.js" crossorigin="anonymous"></script>
+</body>
+</html>
